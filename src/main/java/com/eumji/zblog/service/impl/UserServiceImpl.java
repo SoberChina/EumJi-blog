@@ -1,15 +1,15 @@
 package com.eumji.zblog.service.impl;
 
 import com.eumji.zblog.mapper.UserMapper;
-import com.eumji.zblog.vo.User;
 import com.eumji.zblog.service.UserService;
+import com.eumji.zblog.vo.User;
 import com.eumji.zblog.vo.UserInfo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -20,7 +20,7 @@ import javax.servlet.http.HttpSession;
 @Transactional
 public class UserServiceImpl implements UserService {
 
-    @Resource
+    @Autowired
     private UserMapper userMapper;
 
     @Override

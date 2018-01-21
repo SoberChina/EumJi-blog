@@ -31,7 +31,7 @@ public interface TagMapper {
 
     /**
      * 分页查询标签列表
-     * @param pager
+     * @param pager 分页对象
      * @param tagName
      * @return
      */
@@ -58,7 +58,7 @@ public interface TagMapper {
 
     /**
      *
-     * @param pager
+     * @param pager 分页对象
      * @return
      */
     int initPage(Pager pager);

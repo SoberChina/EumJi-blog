@@ -1,18 +1,21 @@
 package com.eumji.zblog.service.impl;
 
-import com.eumji.zblog.task.BaiduTask;
-import com.eumji.zblog.vo.Article;
 import com.eumji.zblog.mapper.ArticleMapper;
 import com.eumji.zblog.service.ArticleService;
+import com.eumji.zblog.task.BaiduTask;
+import com.eumji.zblog.vo.Article;
 import com.eumji.zblog.vo.ArticleCustom;
 import com.eumji.zblog.vo.Pager;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.time.LocalDate;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 /**
  * Created by GeneratorFx on 2017-04-11.
@@ -21,10 +24,10 @@ import java.util.*;
 @Transactional(rollbackFor = Exception.class)
 public class ArticleServiceImpl implements ArticleService {
 
-    @Resource
+    @Autowired
     private ArticleMapper articleMapper;
 
-    @Resource
+    @Autowired
     private BaiduTask baiduTask;
 
     @Override
@@ -33,13 +36,6 @@ public class ArticleServiceImpl implements ArticleService {
         return articleMapper.getArticleList(pager);
     }
 
-    @Override
-    public Pager<Article> InitPager() {
-        Pager pager = new Pager();
-        int count = articleMapper.getArticleCount();
-        pager.setTotalCount(count);
-        return pager;
-    }
 
     @Override
     public int getArticleCount() {
@@ -47,7 +43,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public void InitPager(Pager pager) {
+    public void initPager(Pager pager) {
         int count = articleMapper.initPage(pager);
         pager.setTotalCount(count);
     }
@@ -137,11 +133,11 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     private Integer getRandomId(){
-        Calendar instance = Calendar.getInstance();
-        int month = instance.MONTH;
-        int dayOfMonth = instance.DAY_OF_MONTH;
+        LocalDate localDate = LocalDate.now();
+        int month = localDate.getMonth().getValue();
+        int dayOfMonth = localDate.getDayOfMonth();
         int random = new Random().nextInt(8999)+1000;
-        StringBuilder append = new StringBuilder().append(month).append(dayOfMonth).append(random);
+        StringBuilder append = new StringBuilder(8).append(month).append(dayOfMonth).append(random);
 
         return Integer.valueOf(append.toString());
     }

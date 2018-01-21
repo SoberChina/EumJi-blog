@@ -1,20 +1,21 @@
 package com.eumji.zblog.controller.admin;
 
+import com.eumji.zblog.constant.ProjectConstant;
 import com.eumji.zblog.service.*;
 import com.eumji.zblog.vo.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
  * 后端管理的页面跳转controller
  * FILE: com.eumji.zblog.controller.admin.AdminPageController.java
  * MOTTO:  不积跬步无以至千里,不积小流无以至千里
- * AUTHOR: EumJi
+ * @author: EumJi
  * DATE: 2017/4/9
  * TIME: 21:55
  */
@@ -22,19 +23,19 @@ import java.util.List;
 @RequestMapping("/admin")
 public class AdminPageController {
 
-    @Resource
+    @Autowired
     private ArticleService articleService;
 
-    @Resource
+    @Autowired
     private CategoryService categoryService;
 
-    @Resource
+    @Autowired
     private TagService tagService;
 
-    @Resource
+    @Autowired
     private PartnerService partnerService;
 
-    @Resource
+    @Autowired
     private UserService userService;
     /**
      * 后台首页
@@ -54,7 +55,7 @@ public class AdminPageController {
         List<Tag> tagList = tagService.getTagList();
         List<Category> categoryList = categoryService.getCategoryList();
         UserInfo userInfo = userService.getUserInfo();
-        model.addAttribute("userInfo",userInfo);
+        model.addAttribute(ProjectConstant.USERINFO,userInfo);
         model.addAttribute("tagList",tagList);
         model.addAttribute("categoryList",categoryList);
         return "admin/article/articleList";
@@ -63,19 +64,19 @@ public class AdminPageController {
 
     /**
      * 跳转标签展示页面
-     * @param model
+     * @param model 对象
      * @return
      */
     @RequestMapping("/tag/list")
     public String labelPage(Model model){
         UserInfo userInfo = userService.getUserInfo();
-        model.addAttribute("userInfo",userInfo);
+        model.addAttribute(ProjectConstant.USERINFO,userInfo);
         return "admin/label/labelList";
     }
     /**
      * 加载友链分页
-     * @param pager
-     * @param model
+     * @param pager 分页对象
+     * @param model 对象
      * @return
      */
     @RequestMapping("/partner/load")
@@ -109,7 +110,7 @@ public class AdminPageController {
     @RequestMapping("/category/list")
     public String categoryPage(Model model){
         UserInfo userInfo = userService.getUserInfo();
-        model.addAttribute("userInfo",userInfo);
+        model.addAttribute(ProjectConstant.USERINFO,userInfo);
         return "admin/category/categoryList";
     }
 
@@ -120,7 +121,7 @@ public class AdminPageController {
     @RequestMapping("/partner/list")
     public String partnerPage(Model model){
         UserInfo userInfo = userService.getUserInfo();
-        model.addAttribute("userInfo",userInfo);
+        model.addAttribute(ProjectConstant.USERINFO,userInfo);
         return "admin/partner/partnerList";
     }
 

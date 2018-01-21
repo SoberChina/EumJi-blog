@@ -1,23 +1,21 @@
 package com.eumji.zblog.controller;
 
 import com.eumji.zblog.service.CategoryService;
-import com.eumji.zblog.service.PartnerService;
 import com.eumji.zblog.vo.ArticleCustom;
 import com.eumji.zblog.vo.Pager;
-import com.eumji.zblog.vo.Partner;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
  * 展示的分类controller
  * FILE: com.eumji.zblog.controller.ArchiveController.java
  * MOTTO:  不积跬步无以至千里,不积小流无以至千里
- * AUTHOR: EumJi
+ * @author: EumJi
  * DATE: 2017/5/8
  * TIME: 15:15
  */
@@ -25,13 +23,13 @@ import java.util.List;
 @RequestMapping("/categories")
 public class CategoryController {
 
-    @Resource
+    @Autowired
     CategoryService categoryService;
 
     /**
      * 获取某个标签的分页文章
-     * @param model
-     * @param pager
+     * @param model 对象
+     * @param pager 分页对象
      * @param categoryId
      * @return
      */

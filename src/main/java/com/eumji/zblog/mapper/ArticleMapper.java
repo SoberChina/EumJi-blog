@@ -24,7 +24,7 @@ public interface ArticleMapper {
 
     /**
      * 通过tagid分页获取当前tag下的文章列表
-     * @param pager
+     * @param pager 分页对象
      * @param tagId
      * @return
      */
@@ -100,8 +100,8 @@ public interface ArticleMapper {
 
     /**
      * 通过时间归档查询文章
-     * @param pager
-     * @param createTime
+     * @param pager 分页对象
+     * @param createTime 创建时间
      * @return
      */
     List<ArticleCustom> loadArticleByArchive(@Param("pager") Pager pager, @Param("createTime") String createTime);

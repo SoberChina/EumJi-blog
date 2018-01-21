@@ -29,7 +29,7 @@ public interface PagerMapper {
 
     /**
      * 初始化时间归档的分页信息
-     * @param createTime
+     * @param createTime 创建时间
      * @return
      */
     int loadArchivePager(String createTime);

@@ -1,5 +1,8 @@
 package com.eumji.zblog.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.security.MessageDigest;
 
 
@@ -7,20 +10,21 @@ import java.security.MessageDigest;
  * md5加密工具类
  * FILE: com.eumji.zblog.util.Md5Util.java
  * MOTTO:  不积跬步无以至千里,不积小流无以至千里
- * AUTHOR: EumJi
+ * @author: EumJi
  * DATE: 2017/4/9
  * TIME: 15:34
  */
 public class Md5Util {
+	private static Logger logger = LoggerFactory.getLogger(Md5Util.class);
 
-	public static final String PWD_CONST = "EumJi025";
+	public static final String PSWORD_SALT = "EumJi025";
 
 	public static String pwdDigest(String password){
-		return digest(password+PWD_CONST);
+		return digest(password+PSWORD_SALT);
 	}
 
-	private final static String digest(String s) {
-		char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
+	private static final  String digest(String s) {
+		char[] hexDigits = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
 		try {
 			byte[] btInput = s.getBytes();
 			// 获得MD5摘要算法的 MessageDigest 对象
@@ -31,7 +35,7 @@ public class Md5Util {
 			byte[] md = mdInst.digest();
 			// 把密文转换成十六进制的字符串形式
 			int j = md.length;
-			char str[] = new char[j * 2];
+			char[] str = new char[j * 2];
 			int k = 0;
 			for (int i = 0; i < j; i++) {
 				byte byte0 = md[i];
@@ -40,7 +44,7 @@ public class Md5Util {
 			}
 			return new String(str);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("{}.digest方法发生异常,异常原因{}",Md5Util.class.getCanonicalName(),e.getMessage());
 			return null;
 		}
 	}

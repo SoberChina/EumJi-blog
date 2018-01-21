@@ -3,6 +3,7 @@ package com.eumji.zblog.controller;
 import com.eumji.zblog.service.CategoryService;
 import com.eumji.zblog.vo.ArticleCustom;
 import com.eumji.zblog.vo.Pager;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,14 +16,14 @@ import java.util.List;
  * 文章归档的controller
  * FILE: com.eumji.zblog.controller.ArchiveController.java
  * MOTTO:  不积跬步无以至千里,不积小流无以至千里
- * AUTHOR: EumJi
+ * @author: EumJi
  * DATE: 2017/5/8
  * TIME: 15:15
  */
 @Controller
 public class ArchiveController {
 
-    @Resource
+    @Autowired
     private CategoryService categoryService;
 
     /**
@@ -30,9 +31,9 @@ public class ArchiveController {
      *
      * 2017.5.29 fixed bug 归档的标题错误问题
      * 设置名称出错
-     * @param createTime
-     * @param pager
-     * @param model
+     * @param createTime 创建时间
+     * @param pager 分页对象
+     * @param model 对象
      * @return
      */
     @RequestMapping("/archive/load/{createTime}")

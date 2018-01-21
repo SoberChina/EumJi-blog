@@ -4,11 +4,10 @@ import com.eumji.zblog.vo.UserInfo;
 
 /**
  * 获取错误信息的工具类
- * FILE: com.eumji.zblog.util.UserInfoUtil.java
- * MOTTO:  不积跬步无以至千里,不积小流无以至千里
- * AUTHOR: EumJi
- * DATE: 2017/4/9
- * TIME: 15:39
+ * file: com.eumji.zblog.util.UserInfoUtil.java
+ * @author: EumJi
+ * date: 2017/4/9
+ * time: 15:39
  */
 public class ResultInfoFactory {
     public static ResultInfo ERROR_RESULT ;

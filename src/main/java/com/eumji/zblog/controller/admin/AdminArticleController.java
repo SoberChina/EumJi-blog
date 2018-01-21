@@ -9,13 +9,13 @@ import com.eumji.zblog.util.ResultInfoFactory;
 import com.eumji.zblog.vo.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.annotation.Resource;
 import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
@@ -25,7 +25,7 @@ import java.util.Map;
  * 后台管理 文章controller
  * FILE: com.eumji.zblog.controller.admin.AdminArticleController.java
  * MOTTO:  不积跬步无以至千里,不积小流无以至千里
- * AUTHOR: EumJi
+ * @author: EumJi
  * DATE: 2017/4/15
  * TIME: 22:00
  */
@@ -34,28 +34,28 @@ import java.util.Map;
 public class AdminArticleController {
     private Logger log = LoggerFactory.getLogger(AdminArticleController.class);
     //文章service
-    @Resource
+    @Autowired
     private ArticleService articleService;
 
     //标签service
-    @Resource
+    @Autowired
     private TagService tagService;
 
     //分类service
-    @Resource
+    @Autowired
     private CategoryService categoryService;
 
-    @Resource
+    @Autowired
     private UserService userService;
     /**
      * 初始化文章分页信息
-     * @param pager
+     * @param pager 分页对象
      * @return
      */
     @RequestMapping("/initPage")
     @ResponseBody
     public Pager initPage(Pager pager) {
-        articleService.InitPager(pager);
+        articleService.initPager(pager);
         return pager;
     }
 
@@ -70,11 +70,11 @@ public class AdminArticleController {
 
     /**
      * 初始化文章列表
-     * @param pager 分页对象
+     * @param pager 分页对象 分页对象
      * @param categoryId 搜索条件 分类id
      * @param tagIds 搜索条件 tag集合
      * @param title 搜索条件 文章标题
-     * @param model
+     * @param model 对象
      * @return
      */
     @RequestMapping("/load")
@@ -120,7 +120,7 @@ public class AdminArticleController {
 
     /**
      * 获取条件,所有tag和category
-     * @param model
+     * @param model 对象
      * @return
      */
     @RequestMapping("/term")
@@ -160,7 +160,7 @@ public class AdminArticleController {
     /**
      * 跳转到编辑页面
      * @param id
-     * @param model
+     * @param model 对象
      * @return
      */
     @RequestMapping("/editJump")
@@ -173,7 +173,7 @@ public class AdminArticleController {
     /**
      * 获取更新文章信息
      * @param articleId 文章标题 用于获取文章信息
-     * @param model
+     * @param model 对象
      * @return
      */
     @RequestMapping("/updateInfo")

@@ -1,7 +1,9 @@
 package com.eumji.zblog.controller;
 
+import com.eumji.zblog.constant.ProjectConstant;
 import com.eumji.zblog.service.*;
 import com.eumji.zblog.vo.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,26 +17,26 @@ import java.util.Map;
  * 首页入口controller
  * FILE: com.eumji.zblog.controller.IndexController.java
  * MOTTO:  不积跬步无以至千里,不积小流无以至千里
- * AUTHOR: EumJi
+ * @author: EumJi
  * DATE: 2017/4/8
  * TIME: 15:19
  */
 @Controller
 public class  PageController {
 
-    @Resource
+    @Autowired
     private PartnerService partnerService;  //友情链接的service
 
-    @Resource
+    @Autowired
     private ArticleService articleService; //分钟信息的service
 
-    @Resource
+    @Autowired
     private CategoryService categoryService;  //分类的service
 
-    @Resource
+    @Autowired
     private TagService tagService;  //标签的service
 
-    @Resource
+    @Autowired
     private UserService userService;
 
     /**
@@ -44,7 +46,7 @@ public class  PageController {
      * 2.友情链接
      * 3.分类列表 -> 用于文章分类显示
      * 4.时间归档列表
-     * @param model
+     * @param model 对象
      * @return
      */
     @RequestMapping("/")
@@ -61,15 +63,15 @@ public class  PageController {
         model.addAttribute("categoryList",categoryList);
         model.addAttribute("partnerList",partnerList);
         model.addAttribute("archiveList",archiveList);
-        model.addAttribute("userInfo",userInfo);
+        model.addAttribute(ProjectConstant.USERINFO,userInfo);
         return "blog/index";
     }
 
     /**
-     * 获取某个标签的分页文章
-     * @param model
-     * @param pager
-     * @param categoryId
+     * 获取某个标签的文章列表
+     * @param model 对象
+     * @param pager 分页对象
+     * @param categoryId 分类id
      * @return
      */
     @RequestMapping("/categories/details/{categoryId}")
@@ -87,9 +89,9 @@ public class  PageController {
 
     /**
      * 通过tag获取文章列表
-     * @param pager 分页信息
+     * @param pager 分页对象
      * @param tagId 标签id
-     * @param model 数据视图
+     * @param model 对象 数据视图
      * @return
      */
     @RequestMapping("tags/details/{tagId}")
@@ -113,9 +115,9 @@ public class  PageController {
      *
      * 2017.5.29 fixed bug 归档的标题错误问题
      * 设置名称出错
-     * @param createTime
-     * @param pager
-     * @param model
+     * @param createTime 创建时间
+     * @param pager 分页对象
+     * @param model 对象
      * @return
      */
     @RequestMapping("/createTime/details/{createTime}")
@@ -159,8 +161,8 @@ public class  PageController {
 
 
     /**
-     * 关于我跳转
-     * @param model
+     * 跳转到 关于我 页面
+     * @param model 对象
      * @return
      */
     @RequestMapping("/about/me")
@@ -177,6 +179,11 @@ public class  PageController {
         return "blog/aboutMe";
     }
 
+    /**
+     * 最受欢迎的文章列表(点击量最高)
+     * @param model
+     * @return
+     */
     @RequestMapping("/popular")
     public String popularArticle(Model model){
         this.loadCommonInfo(model);
@@ -185,11 +192,19 @@ public class  PageController {
         return "blog/popular";
     }
 
+    /**
+     * 隐藏入口
+     * @return
+     */
     @RequestMapping("/thymeleaf")
     public String thymeleafPage(){
         return "blog/thymeleaf";
     }
 
+    /**
+     *  获取基础信息
+     * @param model model对象
+     */
     private void loadCommonInfo(Model model){
 
         List<Partner> partnerList = partnerService.findAll();
@@ -204,6 +219,6 @@ public class  PageController {
         model.addAttribute("categoryList",categoryList);
         model.addAttribute("partnerList",partnerList);
         model.addAttribute("archiveList",archiveList);
-        model.addAttribute("userInfo",userInfo);
+        model.addAttribute(ProjectConstant.USERINFO,userInfo);
     }
 }

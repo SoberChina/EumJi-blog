@@ -4,10 +4,10 @@ import com.eumji.zblog.mapper.PartnerMapper;
 import com.eumji.zblog.service.PartnerService;
 import com.eumji.zblog.vo.Pager;
 import com.eumji.zblog.vo.Partner;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -17,7 +17,7 @@ import java.util.List;
 @Transactional
 public class PartnerServiceImpl implements PartnerService {
 
-    @Resource
+    @Autowired
     private PartnerMapper partnerMapper;
 
 

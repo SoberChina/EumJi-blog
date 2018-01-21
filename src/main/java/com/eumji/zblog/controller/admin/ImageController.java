@@ -8,12 +8,12 @@ import com.eumji.zblog.vo.PhotoResult;
 import com.eumji.zblog.vo.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
@@ -29,17 +29,15 @@ public class ImageController {
     private Logger logger = LoggerFactory.getLogger(AdminArticleController.class);
 
 
-    @Resource
+    @Autowired
     private UserService userService;
 
-    @Resource
+    @Autowired
     private PhotoUploadUtil photoUploadUtil;
 
     @RequestMapping("/imageUpload")
     public PhotoResult imageUpload(@RequestParam(value = "editormd-image-file",required = true) MultipartFile file){
-        PhotoResult result = null;
-        //设置filename
-        // String filename = new Random().nextInt(10000)+file.getOriginalFilename();
+        PhotoResult result;
         try {
             File files = new File(System.getProperty("java.io.tmpdir") + System.getProperty("file.separator")+file.getOriginalFilename());
             file.transferTo(files);
@@ -47,7 +45,7 @@ public class ImageController {
             result = photoUploadUtil.uploadPhoto(files.getAbsolutePath(), file.getOriginalFilename());
             return result;
         } catch (IOException e) {
-           logger.error(e.getMessage());
+           logger.error("{}.imageUpload方法上传文件出错,错误信息:{}",e.getMessage());
            return new PhotoResult(0,"","IO异常上传失败！！！");
         }
     }
@@ -55,13 +53,13 @@ public class ImageController {
     /**
      * 头像修改
      * @param request 获取session的request
-     * @param avatar_src 图片路径
-     * @param avatar_data 图片裁剪的内容
+     * @param avatarSrc 图片路径
+     * @param avatarData 图片裁剪的内容
      * @param file 图片
      * @return
      */
     @RequestMapping("/admin/avatar/update")
-    public PhotoResult updateAvatar(HttpServletRequest request,String avatar_src, String avatar_data, @RequestParam(value = "avatar_file",required = true) MultipartFile file){
+    public PhotoResult updateAvatar(HttpServletRequest request,String avatarSrc, String avatarData, @RequestParam(value = "avatar_file",required = true) MultipartFile file){
         PhotoResult result = null;
         String type = file.getContentType();
         if(type==null || !type.toLowerCase().startsWith("image/")) {
@@ -70,7 +68,7 @@ public class ImageController {
         try {
             //本地新建临时文件
             File files = new File(System.getProperty("java.io.tmpdir"),file.getOriginalFilename());
-            JSONObject object = (JSONObject) JSONObject.parse(avatar_data);
+            JSONObject object = (JSONObject) JSONObject.parse(avatarData);
 
             InputStream inputStream = file.getInputStream();
             //裁剪图片

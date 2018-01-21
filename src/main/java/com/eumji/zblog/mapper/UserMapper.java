@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * FILE: com.eumji.zblog.mapper.UserMapper.java
  * MOTTO:  不积跬步无以至千里,不积小流无以至千里
- * AUTHOR: EumJi
+ * @author: EumJi
  * DATE: 2017/4/9
  * TIME: 10:20
  */

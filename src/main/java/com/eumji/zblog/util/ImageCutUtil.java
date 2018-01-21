@@ -132,14 +132,14 @@ public class ImageCutUtil {
      *
      * @param srcImageFile 源图像文件地址
      * @param result       新的图像地址
-     * @param _width       设置新的图像宽度
-     * @param _height      设置新的图像高度
+     * @param width       设置新的图像宽度
+     * @param height      设置新的图像高度
      */
-    public static void scale(String srcImageFile, String result, int _width, int _height) {
-        scale(srcImageFile, result, _width, _height, 0, 0);
+    public static void scale(String srcImageFile, String result, int width, int height) {
+        scale(srcImageFile, result, width, height, 0, 0);
     }
 
-    public static void scale(String srcImageFile, String result, int _width, int _height, int x, int y) {
+    public static void scale(String srcImageFile, String result, int oldWidth, int oldHeight, int x, int y) {
         try {
 
             BufferedImage src = ImageIO.read(new File(srcImageFile)); // 读入文件
@@ -147,11 +147,11 @@ public class ImageCutUtil {
             int width = src.getWidth(); // 得到源图宽
             int height = src.getHeight(); // 得到源图长
 
-            if (width > _width) {
-                width = _width;
+            if (width > oldWidth) {
+                width = oldWidth;
             }
-            if (height > _height) {
-                height = _height;
+            if (height > oldHeight) {
+                height = oldHeight;
             }
             Image image = src.getScaledInstance(width, height, Image.SCALE_DEFAULT);
             BufferedImage tag = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);

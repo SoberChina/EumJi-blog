@@ -5,10 +5,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
@@ -22,7 +20,7 @@ import java.net.URL;
  * 请自己在application.yml文件中配置
  * FILE: com.eumji.zblog.task.BaiduTask.java
  * MOTTO:  不积跬步无以至千里,不积小流无以至千里
- * AUTHOR: EumJi
+ * @author: EumJi
  * DATE: 2017/4/28
  * TIME: 20:23
  */
@@ -32,10 +30,10 @@ public class BaiduTask {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Value("${baidu.task.postUrl}")
-    public String POST_URL;
+    public String postUrl;
 
     @Value("${baidu.task.baseUrl}")
-    public String BASE_URL;
+    public String baseUrl;
     @Autowired
     private ArticleService articleService;
 
@@ -45,7 +43,7 @@ public class BaiduTask {
      * @throws IOException
      */
     private HttpURLConnection initConnect() throws IOException {
-        HttpURLConnection conn = (HttpURLConnection) new URL(POST_URL).openConnection();
+        HttpURLConnection conn = (HttpURLConnection) new URL(postUrl).openConnection();
         conn.setRequestProperty("Host","data.zz.baidu.com");
         conn.setRequestProperty("User-Agent", "curl/7.12.1");
         conn.setRequestProperty("Content-Length", "83");
@@ -73,13 +71,12 @@ public class BaiduTask {
      * @throws IOException
      */
     private void writerUrl(HttpURLConnection conn,String... ids) throws IOException {
-        PrintWriter out=null;
-        BufferedReader bf = null;
+        PrintWriter out;
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < ids.length; i++){
-            sb.append(BASE_URL+"/article/details/"+ids[i]+"\n");
+            sb.append(baseUrl+"/article/details/"+ids[i]+"\n");
         }
-        logger.info("推送的url为:"+sb.toString());
+        logger.info("百度推送的url为:{}",sb.toString());
         conn.connect();
         out=new PrintWriter(conn.getOutputStream());
         out.print(sb.toString().trim());

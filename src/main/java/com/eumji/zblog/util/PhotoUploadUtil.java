@@ -8,10 +8,11 @@ import com.qiniu.storage.BucketManager;
 import com.qiniu.storage.Configuration;
 import com.qiniu.storage.UploadManager;
 import com.qiniu.util.Auth;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.io.File;
 import java.util.Calendar;
 
 /**
@@ -20,17 +21,18 @@ import java.util.Calendar;
  * 2017年5月22日 修改硬编码 wei
  * FILE: com.eumji.zblog.util.PhotoUploadUtil.java
  * MOTTO:  不积跬步无以至千里,不积小流无以至千里
- * AUTHOR: EumJi
+ * @author: EumJi
  * DATE: 2017/4/21
  * TIME: 22:08
  */
 @Component
 public class PhotoUploadUtil {
-    //设置好账号的ACCESS_KEY和SECRET_KEY
+    private static Logger logger = LoggerFactory.getLogger(PhotoUploadUtil.class);
+    //设置好账号的accessKey和secretKey
     @Value("${qiniu.accessKey}")
-    private String ACCESS_KEY;
+    private String accessKey;
     @Value("${qiniu.secretKey}")
-    private String SECRET_KEY;
+    private String secretKey;
     //要上传的空间
     @Value("${qiniu.bucketName}")
     private String bucketname;
@@ -47,12 +49,12 @@ public class PhotoUploadUtil {
     }
 
     public Auth getAuth(){
-        return Auth.create(ACCESS_KEY,SECRET_KEY);
+        return Auth.create(accessKey,secretKey);
     }
 
     //简单上传，使用默认策略，只需要设置上传的空间名就可以了
     public String getUpToken(){
-        Auth auth = Auth.create(ACCESS_KEY, SECRET_KEY);
+        Auth auth = Auth.create(accessKey, secretKey);
         return auth.uploadToken(bucketname);
     }
 
@@ -94,7 +96,7 @@ public class PhotoUploadUtil {
                 bucketManager.delete(bucketname,filename);
                 result++;
             } catch (QiniuException e) {
-                e.printStackTrace();
+                logger.error("{}.deletePhoto方法发生异常,异常原因{}",PhotoUploadUtil.class.getCanonicalName(),e.getMessage());
                 return 0;
             }
         }

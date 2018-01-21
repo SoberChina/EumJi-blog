@@ -7,10 +7,10 @@ import com.eumji.zblog.vo.ArticleCustom;
 import com.eumji.zblog.vo.Category;
 import com.eumji.zblog.vo.CategoryCustom;
 import com.eumji.zblog.vo.Pager;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -19,10 +19,10 @@ import java.util.List;
 @Service
 @Transactional
 public class CategoryServiceImpl implements CategoryService {
-    @Resource
+    @Autowired
     private CategoryMapper categoryMapper;
 
-    @Resource
+    @Autowired
     private ArticleMapper articleMapper;
 
 
@@ -52,10 +52,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public boolean checkExist(Category category) {
         int count = categoryMapper.checkExist(category);
-        if (count > 0){
-            return true;
-        }
-        return false;
+        return count > 0;
     }
 
     @Override
@@ -88,7 +85,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public int getArticleCountByCategoryId(Integer categoryId) {
-        return categoryMapper.ArticleCatePage(categoryId);
+        return categoryMapper.articleCatePage(categoryId);
     }
 
     @Override

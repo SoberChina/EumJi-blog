@@ -9,7 +9,6 @@ import org.springframework.security.authentication.*;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -20,7 +19,7 @@ import javax.servlet.http.HttpSession;
 /**
  * FILE: com.eumji.zblog.auth.CustomAuthenticationProvider.java
  * MOTTO:  不积跬步无以至千里,不积小流无以至千里
- * AUTHOR: EumJi
+ * @author: EumJi
  * DATE: 2017/4/9
  * TIME: 10:07
  */
@@ -30,7 +29,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     @Autowired
     private UserService userService;
     @Override
-    public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+    public Authentication authenticate(Authentication authentication) {
         UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) authentication;
         String username = token.getName();
         //从数据库找到的用户

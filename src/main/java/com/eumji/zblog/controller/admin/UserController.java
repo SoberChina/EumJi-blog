@@ -1,5 +1,6 @@
 package com.eumji.zblog.controller.admin;
 
+import com.eumji.zblog.constant.ProjectConstant;
 import com.eumji.zblog.service.UserService;
 import com.eumji.zblog.util.Md5Util;
 import com.eumji.zblog.util.ResultInfo;
@@ -19,7 +20,7 @@ import javax.servlet.http.HttpSession;
 /**
  * FILE: com.eumji.zblog.controller.admin.LoginController.java
  * MOTTO:  不积跬步无以至千里,不积小流无以至千里
- * AUTHOR: EumJi
+ * @author: EumJi
  * DATE: 2017/4/9
  * TIME: 15:32
  */
@@ -76,13 +77,13 @@ public class UserController {
 
     /**
      * 获取用户信息
-     * @param model
+     * @param model 对象
      * @return
      */
     @RequestMapping("/admin/userinfo/get")
     public String getUserInfo(Model model){
         UserInfo userInfo = userService.getUserInfo();
-        model.addAttribute("userInfo",userInfo);
+        model.addAttribute(ProjectConstant.USERINFO,userInfo);
         return "admin/partial/userinfo";
 
     }

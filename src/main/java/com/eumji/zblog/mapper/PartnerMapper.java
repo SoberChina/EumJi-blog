@@ -27,7 +27,7 @@ public interface PartnerMapper {
 
     /**
      * 分页查询好友列表
-     * @param pager 分页条件
+     * @param pager 分页对象 分页条件
      * @param param
      * @return
      */
@@ -54,7 +54,7 @@ public interface PartnerMapper {
 
     /**
      * 获取友链数量
-     * @param pager
+     * @param pager 分页对象
      * @return
      */
     int initPage(Pager pager);

@@ -3,6 +3,7 @@ package com.eumji.zblog.controller;
 import com.eumji.zblog.service.TagService;
 import com.eumji.zblog.vo.ArticleCustom;
 import com.eumji.zblog.vo.Pager;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,14 +24,14 @@ import java.util.List;
 @RequestMapping("/tags")
 public class TagController {
 
-    @Resource
+    @Autowired
     private TagService tagService;
 
     /**
      * 通过tag获取文章列表
-     * @param pager 分页信息
+     * @param pager 分页对象
      * @param tagId 标签id
-     * @param model 数据视图
+     * @param model 对象 数据视图
      * @return
      */
     @RequestMapping("/load/{tagId}")

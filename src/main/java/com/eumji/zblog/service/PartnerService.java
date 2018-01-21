@@ -15,7 +15,7 @@ public interface PartnerService {
 
     /**
      * 分页查询好友列表
-     * @param pager
+     * @param pager 分页对象
      * @param param
      * @return
      */

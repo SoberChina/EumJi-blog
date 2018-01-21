@@ -67,7 +67,7 @@
     </select>
 
     <!--获取某个分类的文章数量-->
-    <select id="ArticleCatePage" resultType="int">
+    <select id="articleCatePage" resultType="int">
         select count(id) from article where categoryId = #{categoryId} and status = 1
     </select>
 

@@ -13,7 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 /**
  * FILE: com.eumji.zblog.config.WebSecurityAdapter.java
  * MOTTO:  不积跬步无以至千里,不积小流无以至千里
- * AUTHOR: EumJi
+ * @author: EumJi
  * DATE: 2017/4/9
  * TIME: 9:33
  */
@@ -44,7 +44,6 @@ public class WebSecurityAdapter extends WebSecurityConfigurerAdapter {
 
     @Bean
     public AuthenticationProvider authenticationProvider(){
-        AuthenticationProvider authenticationProvider=new CustomAuthenticationProvider();
-        return authenticationProvider;
+        return new CustomAuthenticationProvider();
     }
 }

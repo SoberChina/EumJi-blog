@@ -6,23 +6,23 @@ import com.eumji.zblog.service.TagService;
 import com.eumji.zblog.vo.ArticleCustom;
 import com.eumji.zblog.vo.Pager;
 import com.eumji.zblog.vo.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
  * @author Do
- * @package com.eumji.zblog.service.impl
+ * package com.eumji.zblog.service.impl
  * @name TagServiceImpl
  * @date 2017/4/13
  * @time 18:56
  */
 @Service
 public class TagServiceImpl implements TagService {
-    @Resource
+    @Autowired
     private ArticleMapper articleMapper;
-    @Resource
+    @Autowired
     private TagMapper tagMapper;
     @Override
     public List<ArticleCustom> loadArticleByTag(Pager pager, Integer tagId) {
@@ -53,10 +53,7 @@ public class TagServiceImpl implements TagService {
     @Override
     public boolean checkExist(Tag tag) {
         int count = tagMapper.checkExist(tag);
-        if (count>0){
-            return true;
-        }
-        return false;
+        return count > 0;
     }
 
     @Override
@@ -79,10 +76,10 @@ public class TagServiceImpl implements TagService {
 
     /**
      * 初始化tag -> article的分页
-     * @param pager
+     * @param pager 分页对象
      */
     @Override
-    public void ArticleTagPage(Pager pager, int tagId) {
+    public void articleTagPage(Pager pager, int tagId) {
         int count =  tagMapper.articleTagPage(tagId);
         pager.setTotalCount(count);
     }

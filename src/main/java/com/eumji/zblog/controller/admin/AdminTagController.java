@@ -5,22 +5,21 @@ import com.eumji.zblog.util.ResultInfo;
 import com.eumji.zblog.util.ResultInfoFactory;
 import com.eumji.zblog.vo.Pager;
 import com.eumji.zblog.vo.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.annotation.Resource;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.sql.SQLException;
 import java.util.List;
 
 /**
  * FILE: com.eumji.zblog.controller.admin.TagController.java
  * MOTTO:  不积跬步无以至千里,不积小流无以至千里
- * AUTHOR: EumJi
+ * @author: EumJi
  * DATE: 2017/4/15
  * TIME: 11:31
  */
@@ -28,14 +27,14 @@ import java.util.List;
 @RequestMapping("/admin/tag")
 public class AdminTagController {
 
-    @Resource
+    @Autowired
     private TagService tagService;
 
 
     /**
      * 初始化分页信息
-     * @param pager
-     * @param model
+     * @param pager 分页对象
+     * @param model 对象
      * @return
      */
     @RequestMapping("/initPage")
@@ -48,7 +47,7 @@ public class AdminTagController {
     /**
      * 编辑一个标签
      * @param id
-     * @param model
+     * @param model 对象
      * @return
      */
     @RequestMapping("/editJump/{id}")
@@ -69,9 +68,9 @@ public class AdminTagController {
 
     /**
      * 分页加载标签
-     * @param pager
+     * @param pager 分页对象
      * @param tagName
-     * @param model
+     * @param model 对象
      * @return
      */
     @RequestMapping("/load")

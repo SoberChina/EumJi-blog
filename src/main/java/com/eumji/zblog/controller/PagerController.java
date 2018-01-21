@@ -1,20 +1,18 @@
 package com.eumji.zblog.controller;
 
-import com.eumji.zblog.service.CategoryService;
 import com.eumji.zblog.service.PagerService;
 import com.eumji.zblog.service.TagService;
-import com.eumji.zblog.vo.ArticleCustom;
 import com.eumji.zblog.vo.Pager;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
-import javax.annotation.Resource;
-import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 页面管理的controller
  * @author EumJi
- * @package com.eumji.zblog.controller.admin
+ * package com.eumji.zblog.controller.admin
  * @name PagerController
  * @date 2017/4/11
  * @time 21:44
@@ -22,9 +20,9 @@ import java.util.List;
 @RestController
 public class PagerController {
 
-    @Resource
+    @Autowired
     private PagerService pagerService;  //分页的service
-    @Resource
+    @Autowired
     private TagService tagService;  //标签的service
 
     /**
@@ -39,7 +37,7 @@ public class PagerController {
 
     /**
      * 初始化当前分类id的文章分页信息
-     * @param pager 分页对象
+     * @param pager 分页对象 分页对象
      * @param categoryId 分类id
      * @return
      */
@@ -51,13 +49,13 @@ public class PagerController {
 
     /**
      *初始化当前标签的文章分页信息
-     * @param pager 分页对象
+     * @param pager 分页对象 分页对象
      * @param tagId 标签
      * @return
      */
     @RequestMapping("/pager/tags/{tagId}")
     public Pager initPage(Pager pager,@PathVariable Integer tagId){
-        tagService.ArticleTagPage(pager,tagId);
+        tagService.articleTagPage(pager,tagId);
         return pager;
     }
 

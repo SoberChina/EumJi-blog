@@ -1,20 +1,21 @@
 package com.eumji.zblog.controller;
 
+import com.eumji.zblog.constant.ProjectConstant;
 import com.eumji.zblog.service.*;
 import com.eumji.zblog.vo.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
  * 前台文章处理controller
  * FILE: com.eumji.zblog.controller.ArticleController.java
  * MOTTO:  不积跬步无以至千里,不积小流无以至千里
- * AUTHOR: EumJi
+ * @author: EumJi
  * DATE: 2017/5/8
  * TIME: 15:15
  */
@@ -22,24 +23,24 @@ import java.util.List;
 @RequestMapping("/article")
 public class ArticleController {
 
-    @Resource
+    @Autowired
     private ArticleService articleService;  //文章service
 
-    @Resource
+    @Autowired
     private PartnerService partnerService; //友情链接service
 
-    @Resource
+    @Autowired
     private CategoryService categoryService; //分类service
 
-    @Resource
+    @Autowired
     private TagService tagService;  //标签service
 
-    @Resource
+    @Autowired
     private UserService userService;
     /**
      * 加载分页列表数据
-     * @param pager
-     * @param model
+     * @param pager 分页对象
+     * @param model 对象
      * @return
      */
     @RequestMapping("/load")
@@ -90,14 +91,14 @@ public class ArticleController {
         model.addAttribute("tagCount",tagCount);
         model.addAttribute("categoryList",categoryList);
         model.addAttribute("partnerList",partnerList);
-        model.addAttribute("userInfo",userInfo);
+        model.addAttribute(ProjectConstant.USERINFO,userInfo);
         return "blog/article";
     }
 
     /**
      * 全局搜索
      * @param keyword 关键字
-     * @param model
+     * @param model 对象
      * @return
      */
     @RequestMapping("/content/search")

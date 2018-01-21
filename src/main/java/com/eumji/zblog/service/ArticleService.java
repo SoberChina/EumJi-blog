@@ -16,19 +16,13 @@ public interface ArticleService {
 
     List<ArticleCustom> articleList(Pager pager);
 
-    /**
-     * 获取分页信息
-     * @return
-     */
-    Pager<Article> InitPager();
-
     int getArticleCount();
 
     /**
      * 初始化后台管理的article分页信息
-     * @param pager 分页对象
+     * @param pager 分页对象 分页对象
      */
-    void InitPager(Pager pager);
+    void initPager(Pager pager);
 
     /**
      * 条件查询文章

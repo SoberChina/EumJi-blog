@@ -32,8 +32,8 @@ public interface CategoryMapper {
 
     /**
      * 分页获取文章列表
-     * @param pager
-     * @param categoryName
+     * @param pager 分页对象
+     * @param categoryName 分类名称
      * @return
      */
     List<Category> loadCategory(@Param("pager") Pager pager, @Param("categoryName") String categoryName);
@@ -59,7 +59,7 @@ public interface CategoryMapper {
 
     /**
      * 初始化分页信息
-     * @param pager
+     * @param pager 分页对象
      * @return
      */
     int initPage(Pager pager);
@@ -76,7 +76,7 @@ public interface CategoryMapper {
      * @param categoryId
      * @return
      */
-    int ArticleCatePage(int categoryId);
+    int articleCatePage(int categoryId);
 
     /**
      * 删除分类

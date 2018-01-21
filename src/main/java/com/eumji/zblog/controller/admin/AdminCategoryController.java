@@ -1,17 +1,18 @@
 package com.eumji.zblog.controller.admin;
 
+import com.eumji.zblog.constant.ProjectConstant;
 import com.eumji.zblog.service.CategoryService;
 import com.eumji.zblog.util.ResultInfo;
 import com.eumji.zblog.util.ResultInfoFactory;
 import com.eumji.zblog.vo.Category;
 import com.eumji.zblog.vo.Pager;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.annotation.Resource;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.List;
@@ -20,7 +21,7 @@ import java.util.List;
  * 后台管理的分类controller
  * FILE: com.eumji.zblog.controller.admin.AdminCategoryController.java
  * MOTTO:  不积跬步无以至千里,不积小流无以至千里
- * AUTHOR: EumJi
+ * @author: EumJi
  * DATE: 2017/4/15
  * TIME: 14:43
  */
@@ -28,13 +29,14 @@ import java.util.List;
 @RequestMapping("/admin/category")
 public class AdminCategoryController {
 
-    @Resource
+
+    @Autowired
     private CategoryService categoryService;
 
 
     /**
      * 初始化分页信息 获取totalcount
-     * @param pager 分页对象
+     * @param pager 分页对象 分页对象
      * @return
      */
     @RequestMapping("/initPage")
@@ -56,7 +58,7 @@ public class AdminCategoryController {
     /**
      * 跳转修改页面
      * @param categoryId 分类id
-     * @param model
+     * @param model 对象
      * @return
      */
     @RequestMapping("/editJump/{categoryId}")
@@ -68,9 +70,9 @@ public class AdminCategoryController {
 
     /**
      * 加载分类信息列表
-     * @param pager 分页对象
+     * @param pager 分页对象 分页对象
      * @param categoryName  搜索条件
-     * @param model
+     * @param model 对象
      * @return
      */
     @RequestMapping("/load")
@@ -91,8 +93,8 @@ public class AdminCategoryController {
     public ResultInfo saveCateogry(Category category){
         try {
             //解码
-            category.setCategoryName(URLDecoder.decode(category.getCategoryName(),"UTF-8"));
-            category.setAliasName(URLDecoder.decode(category.getAliasName(),"UTF-8"));
+            category.setCategoryName(URLDecoder.decode(category.getCategoryName(), ProjectConstant.CHARSET_UTF8));
+            category.setAliasName(URLDecoder.decode(category.getAliasName(),ProjectConstant.CHARSET_UTF8));
             if (category.getSort()==null){
                 category.setSort(0);
             }
@@ -121,8 +123,8 @@ public class AdminCategoryController {
 
         try {
             //解码
-            category.setCategoryName(URLDecoder.decode(category.getCategoryName(),"UTF-8"));
-            category.setAliasName(URLDecoder.decode(category.getAliasName(),"UTF-8"));
+            category.setCategoryName(URLDecoder.decode(category.getCategoryName(),ProjectConstant.CHARSET_UTF8));
+            category.setAliasName(URLDecoder.decode(category.getAliasName(),ProjectConstant.CHARSET_UTF8));
             if (category.getSort()==null){
                 category.setSort(0);
             }

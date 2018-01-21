@@ -4,6 +4,7 @@ import com.eumji.zblog.mapper.ArticleMapper;
 import com.eumji.zblog.mapper.PagerMapper;
 import com.eumji.zblog.service.PagerService;
 import com.eumji.zblog.vo.Pager;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -18,9 +19,9 @@ import javax.annotation.Resource;
 @Service
 public class PagerServiceImpl implements PagerService {
 
-    @Resource
+    @Autowired
     private ArticleMapper articleMapper;
-    @Resource
+    @Autowired
     private PagerMapper pagerMapper;
     @Override
     public void initPage(Pager pager) {
