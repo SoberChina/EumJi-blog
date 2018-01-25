@@ -82,6 +82,31 @@ public class PhotoUploadUtil {
         return result;
     }
 
+
+    /**
+     * 长传图片
+     * @param data 图片路径名
+     * @param filename 图片名
+     * @return
+     */
+    public PhotoResult uploadPhoto(byte[] data, String filename){
+        PhotoResult result = new PhotoResult();
+        try {
+            Configuration cfg = new Configuration(Zone.zone2());
+            Response response = new UploadManager(cfg).put(data, getFilePath(filename), getUpToken());
+            if (response.isOK()){
+                result.setSuccess(1);
+                result.setUrl(basePath+getFilePath(filename));
+                return result;
+            }
+        } catch (QiniuException e) {
+            result.setSuccess(0);
+            result.setMessage(e.getMessage());
+            return result;
+        }
+        return result;
+    }
+
     /**
      * 删除图片
      * @param fileNames

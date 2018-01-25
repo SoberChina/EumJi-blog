@@ -9,7 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -147,7 +147,11 @@ public class  PageController {
      * @return
      */
     @RequestMapping("/login")
-    public String loginPage(){
+    public String loginPage(HttpServletRequest request){
+        User user = (User) request.getSession().getAttribute("user");
+        if (user != null){
+            return "forward:/admin/article/list";
+        }
         return "login";
     }
 
