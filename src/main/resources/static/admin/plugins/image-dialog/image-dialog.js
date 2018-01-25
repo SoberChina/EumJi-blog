@@ -181,7 +181,7 @@
                     var options = {
                        
                         success: showResponse,  // post-submit callback
-                        timeout: 5000
+                        timeout: 20000
                     };
                     dialog.find("[type=\"submit\"]").bind("click", submitHandler).trigger("click");
 
