@@ -8,7 +8,7 @@ package com.eumji.zblog.util;
  * DATE: 2017/4/9
  * TIME: 15:34
  */
-public class ResultInfo {
+public class ResultInfo<T> {
 
     // 操作结果
     private String resultCode;
@@ -17,7 +17,7 @@ public class ResultInfo {
     private String errorInfo;
 
     // 附属对象
-    private Object object;
+    private T object;
 
     public ResultInfo(String resultCode, String errorInfo) {
         super();
@@ -25,7 +25,7 @@ public class ResultInfo {
         this.errorInfo = errorInfo;
     }
 
-    public ResultInfo(String resultCode, String errorInfo, Object object) {
+    public ResultInfo(String resultCode, String errorInfo, T object) {
         super();
         this.resultCode = resultCode;
         this.errorInfo = errorInfo;
@@ -48,13 +48,12 @@ public class ResultInfo {
         this.errorInfo = errorInfo;
     }
 
-    public Object getObject() {
+    public T getObject() {
         return object;
     }
 
-    public void setObject(Object object) {
+    public void setObject(T object) {
         this.object = object;
     }
-
 }
 

@@ -9,9 +9,7 @@ import com.eumji.zblog.vo.UserInfo;
  * date: 2017/4/9
  * time: 15:39
  */
-public class ResultInfoFactory {
-    public static ResultInfo ERROR_RESULT ;
-    public static ResultInfo SUCCESS_RESULT;
+public class ResultInfoFactory<T> {
 
     /**
      * 带错误信息错误信息相应体
@@ -19,12 +17,7 @@ public class ResultInfoFactory {
      * @return
      */
     public static ResultInfo getErrorResultInfo(String errorInfo){
-        if (ERROR_RESULT == null){
-            ERROR_RESULT = new ResultInfo("fail",errorInfo);
-        }else{
-            ERROR_RESULT.setErrorInfo(errorInfo);
-        }
-        return ERROR_RESULT;
+        return new ResultInfo("fail",errorInfo);
     }
 
     /**
@@ -42,12 +35,7 @@ public class ResultInfoFactory {
      * @return
      */
     public static ResultInfo getSuccessResultInfo(String errorInfo){
-        if (SUCCESS_RESULT == null){
-            SUCCESS_RESULT = new ResultInfo("success",errorInfo);
-        }else{
-            SUCCESS_RESULT.setErrorInfo(errorInfo);
-        }
-        return SUCCESS_RESULT;
+        return new ResultInfo("success",errorInfo);
     }
 
     /**
@@ -60,8 +48,8 @@ public class ResultInfoFactory {
     }
 
 
-    public static ResultInfo getSuccessData(UserInfo userInfo) {
-        ResultInfo successResultInfo = getSuccessResultInfo();
+    public ResultInfo getSuccessData(T userInfo) {
+        ResultInfo successResultInfo = new ResultInfo("success","操作成功！！！");
         successResultInfo.setObject(userInfo);
         return successResultInfo;
     }
