@@ -23,17 +23,17 @@ public class WebSecurityAdapter extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
-        http.authorizeRequests().antMatchers("/","/blog/**","/tag/**","friend","/login/**","/login/auth").permitAll()
+        http.authorizeRequests().antMatchers("/","/blog/**","/tag/**","friend","/login/**").permitAll()
                 .antMatchers("/admin/**").authenticated()
-                .and().rememberMe().tokenValiditySeconds(3600)
+//                .and().rememberMe().tokenValiditySeconds(3600)
                 .and().formLogin().loginPage("/login").defaultSuccessUrl("/admin/article/list").permitAll()
                 .and().logout().logoutUrl("/admin/loginOut").permitAll();
 
     }
 
     @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/**/*.*");
+    public void configure(WebSecurity web) {
+        web.ignoring().antMatchers("**/js/**", "**/css/**", "/vendor/**", "/image/**", "/admin/lib/**","/admin/plugins/**");
     }
 
 

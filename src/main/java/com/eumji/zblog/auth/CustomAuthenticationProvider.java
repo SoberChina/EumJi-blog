@@ -64,9 +64,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         return new UsernamePasswordAuthenticationToken(user, password, user.getAuthorities());
     }
 
-    public void config(WebSecurity web) {
-        web.ignoring().antMatchers("/js/**", "/css/**", "/vendor/**", "/image/**", "/admin/**");
-    }
 
     @Override
     public boolean supports(Class<?> authentication) {

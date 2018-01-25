@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
@@ -35,14 +36,12 @@ public class ImageController {
     @Autowired
     private PhotoUploadUtil photoUploadUtil;
 
-    @RequestMapping("/imageUpload")
+    @RequestMapping("/admin/article/imageUpload")
     public PhotoResult imageUpload(@RequestParam(value = "editormd-image-file",required = true) MultipartFile file){
         PhotoResult result;
         try {
-            File files = new File(System.getProperty("java.io.tmpdir") + System.getProperty("file.separator")+file.getOriginalFilename());
-            file.transferTo(files);
 
-            result = photoUploadUtil.uploadPhoto(files.getAbsolutePath(), file.getOriginalFilename());
+            result = photoUploadUtil.uploadPhoto(file.getBytes(), file.getOriginalFilename());
             return result;
         } catch (IOException e) {
            logger.error("{}.imageUpload方法上传文件出错,错误信息:{}",e.getMessage());
@@ -66,16 +65,10 @@ public class ImageController {
             return new PhotoResult(0,"","不支持的文件类型，仅支持图片！");
         }
         try {
-            //本地新建临时文件
-            File files = new File(System.getProperty("java.io.tmpdir"),file.getOriginalFilename());
-            JSONObject object = (JSONObject) JSONObject.parse(avatarData);
 
-            InputStream inputStream = file.getInputStream();
-            //裁剪图片
-            ImageCutUtil.cut(inputStream, files, (int) object.getFloatValue("x"), (int) object.getFloatValue("y"), (int) object.getFloatValue("width"), (int) object.getFloatValue("height"));
-            inputStream.close();
+            JSONObject object = (JSONObject) JSONObject.parse(avatarData);
             //上传图片
-            result = photoUploadUtil.uploadPhoto(files.getAbsolutePath(), file.getOriginalFilename());
+            result = photoUploadUtil.uploadPhoto(ImageCutUtil.cutImageForByte(ImageIO.read(file.getInputStream()),(int) object.getFloatValue("x"), (int) object.getFloatValue("y"), (int) object.getFloatValue("width"), (int) object.getFloatValue("height")), file.getOriginalFilename());
             User user = (User) request.getSession().getAttribute("user");
             userService.updateAvatar(result.getUrl(),user.getUsername());
             result.setMessage("修改图像成功！！！");
