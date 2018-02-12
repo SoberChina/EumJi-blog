@@ -1,6 +1,5 @@
 package com.eumji.zblog.util;
 
-import com.sun.xml.internal.messaging.saaj.util.ByteOutputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -8,7 +7,10 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.color.ColorSpace;
 import java.awt.image.*;
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Created by eumji on 17-5-31.
@@ -16,6 +18,7 @@ import java.io.*;
 public class ImageCutUtil {
 
     private static Logger logger = LoggerFactory.getLogger(ImageCutUtil.class);
+
     /**
      * 图像切割（改）     *
      *
@@ -64,15 +67,16 @@ public class ImageCutUtil {
 
     /**
      * 裁剪并保存到指定文件
-     * @param bi 文件
+     *
+     * @param bi           文件
      * @param dirImageFile 目标文件
-     * @param x x坐标
-     * @param y y坐标
-     * @param destWidth 宽度
-     * @param destHeight 高度
+     * @param x            x坐标
+     * @param y            y坐标
+     * @param destWidth    宽度
+     * @param destHeight   高度
      */
     public static void cutAndSave(BufferedImage bi, File dirImageFile, int x, int y, int destWidth,
-                           int destHeight) {
+                                  int destHeight) {
         try {
             BufferedImage tag = cutImage(bi, x, y, destWidth, destHeight);
             ImageIO.write(tag, "JPEG", dirImageFile);
@@ -82,14 +86,14 @@ public class ImageCutUtil {
     }
 
 
-    public static byte[] cutImageForByte(BufferedImage image , int x, int y, int destWidth, int destHeight){
+    public static byte[] cutImageForByte(BufferedImage image, int x, int y, int destWidth, int destHeight) {
         BufferedImage bufferedImage = cutImage(image, x, y, destWidth, destHeight);
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         try {
-            ImageIO.write(bufferedImage,"JPEG",outputStream);
+            ImageIO.write(bufferedImage, "JPEG", outputStream);
             return outputStream.toByteArray();
         } catch (IOException e) {
-            logger.error("{}.cutImageForByte方法发生异常,异常信息为:{}",ImageCutUtil.class.getCanonicalName(),e.getMessage());
+            logger.error("{}.cutImageForByte方法发生异常,异常信息为:{}", ImageCutUtil.class.getCanonicalName(), e.getMessage());
         }
 
         return null;
@@ -98,14 +102,15 @@ public class ImageCutUtil {
 
     /**
      * 获取裁剪后的图片
-     * @param bi 裁剪前的图片
-     * @param x x坐标
-     * @param y y坐标
-     * @param destWidth 宽度
+     *
+     * @param bi         裁剪前的图片
+     * @param x          x坐标
+     * @param y          y坐标
+     * @param destWidth  宽度
      * @param destHeight 高度
      * @return
      */
-    public static BufferedImage cutImage(BufferedImage bi , int x, int y, int destWidth, int destHeight) {
+    public static BufferedImage cutImage(BufferedImage bi, int x, int y, int destWidth, int destHeight) {
         Image img;
         ImageFilter cropFilter;
         // 读取源图像
@@ -160,7 +165,7 @@ public class ImageCutUtil {
             g.dispose();
             ImageIO.write(tag, "JPEG", new File(result));// 输出到文件流
         } catch (IOException e) {
-           logger.error(e.getMessage());
+            logger.error(e.getMessage());
         }
     }
 
@@ -170,8 +175,8 @@ public class ImageCutUtil {
      *
      * @param srcImageFile 源图像文件地址
      * @param result       新的图像地址
-     * @param width       设置新的图像宽度
-     * @param height      设置新的图像高度
+     * @param width        设置新的图像宽度
+     * @param height       设置新的图像高度
      */
     public static void scale(String srcImageFile, String result, int width, int height) {
         scale(srcImageFile, result, width, height, 0, 0);
@@ -198,7 +203,7 @@ public class ImageCutUtil {
             g.dispose();
             ImageIO.write(tag, "JPEG", new File(result));// 输出到文件流
         } catch (IOException e) {
-           logger.error(e.getMessage());
+            logger.error(e.getMessage());
         }
     }
 
@@ -212,14 +217,14 @@ public class ImageCutUtil {
                 BufferedImage src = ImageIO.read(f);
                 if (f.canWrite()) {
                     ImageIO.write(src, "JPG", new File(result));
-                }else {
+                } else {
                     logger.error("文件没有写的权限");
                 }
-            }else {
+            } else {
                 logger.error("文件没有读的权限");
             }
         } catch (Exception e) {
-           logger.error(e.getMessage());
+            logger.error(e.getMessage());
         }
     }
 
@@ -237,7 +242,7 @@ public class ImageCutUtil {
             src = op.filter(src, null);
             ImageIO.write(src, "JPEG", new File(result));
         } catch (IOException e) {
-           logger.error(e.getMessage());
+            logger.error(e.getMessage());
         }
     }
 }

@@ -2,9 +2,9 @@
  * Created by EumJi on 2017/4/9.
  */
 
-/*$("#login-button").click(function () {
+$("#login-button").click(function () {
     loginSubmit();
-});*/
+});
 
 $("input").keydown(function(e){
     if (e.keyCode==13) {

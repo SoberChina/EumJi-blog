@@ -51,10 +51,10 @@ function  loadList(type,id) {
             //初始化文章
             /*分享初始化*/
             $(".socialShare").socialShare({
-                content: "EumJi在IT,生活,音乐方面的分享",
-                url:"www.eumji025.com/",
+                content: "IT,生活,音乐方面的分享",
+                url:"www.centrestore.xin/",
                 title:$("#article-title").text(),
-                summary:'Eumji个人博客分享,欢迎指教',
+                summary:'个人博客分享,欢迎指教',
                 pic:'http://of8rkrh1w.bkt.clouddn.com/2017/4/21/touxiang.jpg'
             });
             $('#loader-wrapper .load_title').remove();

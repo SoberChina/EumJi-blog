@@ -4,19 +4,19 @@ qiniu:
   secretKey:
   bucketName:
   basePath:
+
 ## 百度推送
 baidu:
   task:
     postUrl:
     baseUrl:
-
 #数据库连接配置
 spring:
   redis:
-        host: 192.168.80.136
+        host: 127.0.0.1
         port: 6379
   datasource:
-    url: jdbc:mysql://192.168.80.136:3307/zblog
+    url: jdbc:mysql://127.0.0.1:3307/zblog
     username: root
     password: root_admin
     driver-class-name: com.mysql.jdbc.Driver
@@ -42,9 +42,7 @@ mybatis:
   config-location: classpath:mybatis-conf.xml
 server:
   session-timeout : 3600
-  port: 8080
-logging:
-  config: classpath:logback-spring.xml
+  port: 80
 
 
 
